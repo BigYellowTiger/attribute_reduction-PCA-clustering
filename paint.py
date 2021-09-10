@@ -64,7 +64,7 @@ def dynamic_state_point(attributes, all_labels, all_center, all_radius, data_ran
     each_label_y[cur_label].append(cur_sample[1])
   all_x_cycle, all_y_cycle = get_cycle_pos(all_center, all_radius)
   for i in range(0, len(all_center)):
-    plt.scatter(all_center[i][0], all_center[i][1], marker='*', color=all_color[i])
+    plt.scatter(all_center[i][0], all_center[i][1], s=400, marker='*', color='y')#all_color[i])
     x_cycle = all_x_cycle[i]
     y_cycle = all_y_cycle[i]
     plt.scatter(x_cycle,y_cycle, s=90, marker="+",color=all_color[i])

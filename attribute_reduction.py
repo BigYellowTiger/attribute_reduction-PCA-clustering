@@ -186,16 +186,8 @@ def bba_attribute_reduction(file_path):
                 best_fitness = fitness
                 best_pos = new_pos
         
-        
-        # print('best_pos: '+str(best_pos))
-        # print('best_fitness: '+str(best_fitness))
-        # print('iteration: '+str(iter))
-        # print('---------------------------------------')
-        iter += 1
-    # print('final best pos:')
-    # print(best_pos)    
+        iter += 1 
     end = datetime.datetime.now()
-    # print(end-start)
     cnt = 0
     for obj in best_pos:
         if obj == 1:

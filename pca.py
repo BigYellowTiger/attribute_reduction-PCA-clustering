@@ -2,7 +2,7 @@ import numpy as np
 from numpy.lib.function_base import cov
 
 def get_primary_component(attributes, pc_num):
-  # 去均值化
+  # 求每个属性均值
   dimension = len(attributes[0])
   each_att_avg = []
   for i in range(0, dimension):

@@ -193,4 +193,6 @@ def bba_attribute_reduction(file_path):
         if obj == 1:
             cnt += 1
     print(cnt)
+    print('属性约简结果（0代表删去属性，1代表保留属性）：')
+    print(best_pos)
     return best_pos

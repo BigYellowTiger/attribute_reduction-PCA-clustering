@@ -1,5 +1,5 @@
 from attribute_reduction import bba_attribute_reduction
-import json
+import copy
 import clustering
 import pca
 import paint
@@ -8,7 +8,7 @@ import numpy as np
 plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
-file_path = ''
+file_path = 'C:/Users/qly/Desktop/磨矿系统需求/蚯蚓图demo/train/wine.csv'
 data_f = open(file_path,'r') # 默认csv文件格式，且经过标准化
 attributes = []
 real_labels = []
@@ -18,7 +18,8 @@ for obj in data_f:
   for i in range(0, len(temp_arr)-1):
     temp_list.append(float(temp_arr[i]))
   attributes.append(temp_list)
-  real_labels.append(temp_arr[len(temp_arr)-1])
+  real_labels.append(int(temp_arr[len(temp_arr)-1]))
+ori_attributes = copy.deepcopy(attributes)
 
 # 属性约简
 reduct = bba_attribute_reduction(file_path)
@@ -36,6 +37,13 @@ np_pc = np.array(pc)
 np_attributes = np.array(attributes)
 np_reduced_attributes = np.dot(np_attributes, np_pc.T)
 attributes = np_reduced_attributes.tolist()
+
+# 对原始数据集直接pca降维
+pc = pca.get_primary_component(ori_attributes, 2)
+np_pc = np.array(pc)
+np_ori_attributes = np.array(ori_attributes)
+np_reduced_ori_attributes = np.dot(np_ori_attributes, np_pc.T)
+ori_attributes = np_reduced_ori_attributes.tolist()
 
 # 聚类
 all_center, all_labels, all_radius = clustering.get_cluster_center(attributes, 3)
@@ -57,4 +65,4 @@ for i in range(0, len(attributes)):
     y_min = cur_sample[1]
 data_range = [[x_min, x_max], [y_min, y_max]]
 # demo动画
-paint.dynamic_state_point(attributes, all_labels, all_center, all_radius, data_range, True)
+paint.dynamic_state_point(attributes, all_labels, all_center, all_radius, data_range, True, 3, real_labels, ori_attributes)

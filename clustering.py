@@ -21,16 +21,25 @@ def get_cluster_center(attributes, k):
       temp_center.append(r)
     all_center.append(temp_center)
   
-  # 循环直至所有样本类别不再改变
-  label_changed = True
+  # 循环直至所有聚类中心不再改变
+  center_changed = True
   all_labels = []
   for i in range(0, len(attributes)):
     all_labels.append(-1)
 
   each_label_num = []
   iter_counter = 0
-  while label_changed:
+  while center_changed:
     iter_counter+=1
+    # print('聚类迭代到第'+str(iter_counter)+'次')
+    center_changed = False
+    old_center = []
+    for i in range(0, k):
+      temp_list = []
+      cur_center = all_center[i]
+      for j in range(0, len(cur_center)):
+        temp_list.append(cur_center[j])
+      old_center.append(temp_list)
     # 计算当前center下每个样本的标签
     for i in range(0, len(attributes)):
       cur_sample = attributes[i]
@@ -47,12 +56,13 @@ def get_cluster_center(attributes, k):
         if dis_to_all_center[label_i] < min_dis:
           new_label = label_i
           min_dis = dis_to_all_center[label_i]
+      all_labels[i] = new_label
       # dis_to_all_center = sorted(dis_to_all_center, key=lambda dis: dis[1]) # 按距离排序
       # new_label = dis_to_all_center[0][0]
-      label_changed = False
-      if new_label != all_labels[i]:
-        all_labels[i] = new_label
-        label_changed = True
+      # label_changed = False
+      # if new_label != all_labels[i]:
+      #   all_labels[i] = new_label
+      #   label_changed = True
     
     # 更新center
     each_label_num = []
@@ -73,10 +83,13 @@ def get_cluster_center(attributes, k):
       if each_label_num[i] != 0:
         for j in range(0, dimension):
           all_center[i][j] = all_center[i][j] / each_label_num[i]
+        if all_center[i] != old_center[i]:
+          center_changed = True
 
       # 如果某个聚类中心一个样本都没吸引到（极有可能出现在一开始），则随机选择一个样本作为聚类中心，并额外迭代一次
       else:
         all_center[i] = attributes[random.randint(0,len(attributes)-1)]
+        center_changed = True
         # label_changed = True
 
   # 获取半径，暂取到该类别下所有样本的距离的均值
@@ -98,6 +111,6 @@ def get_cluster_center(attributes, k):
     else:
       all_radius[i] = 0.1
 
-  print('迭代了'+str(iter_counter)+'次')
+  print('聚类算法迭代了'+str(iter_counter)+'次')
   return all_center, all_labels, all_radius
 

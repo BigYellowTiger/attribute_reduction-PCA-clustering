@@ -46,5 +46,9 @@ def get_primary_component(attributes, pc_num):
   result = []
   for i in range(0, pc_num):
     result.append(feature_tuple[i][1])
+  
+  print('PCA协方差矩阵前n个最大特征值所对应的特征向量：')
+  for obj in result:
+    print(obj)
 
   return result

@@ -57,12 +57,6 @@ def get_cluster_center(attributes, k):
           new_label = label_i
           min_dis = dis_to_all_center[label_i]
       all_labels[i] = new_label
-      # dis_to_all_center = sorted(dis_to_all_center, key=lambda dis: dis[1]) # 按距离排序
-      # new_label = dis_to_all_center[0][0]
-      # label_changed = False
-      # if new_label != all_labels[i]:
-      #   all_labels[i] = new_label
-      #   label_changed = True
     
     # 更新center
     each_label_num = []
@@ -90,7 +84,6 @@ def get_cluster_center(attributes, k):
       else:
         all_center[i] = attributes[random.randint(0,len(attributes)-1)]
         center_changed = True
-        # label_changed = True
 
   # 获取半径，暂取到该类别下所有样本的距离的均值
   all_radius = []

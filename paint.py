@@ -30,10 +30,10 @@ def get_cycle_pos(all_center, all_radius):
   return all_x, all_y
 
 fig, ax = plt.subplots(2,2)
-ax[0][0].set_title('原始数据直接PCA后样本分布')
-ax[0][1].set_title('属性约简+PCA后样本分布')
-ax[1][0].set_title('属性约简+PCA+聚类挖掘结果')
-ax[1][1].set_title('各个模式中心点与边界分布')
+ax[0][0].set_title('原始数据直接PCA后真实类别分布')
+ax[0][1].set_title('属性约简+PCA后样本真实类别分布')
+ax[1][0].set_title('属性约简+PCA+聚类所得的聚类簇分布')
+ax[1][1].set_title('各个聚类簇中心点与边界分布')
 def dynamic_state_point(attributes, all_labels, all_center, all_radius, data_range, show_train_data, label_num, real_labels, ori_attributes):
   # 数据原始分布
   all_x = []

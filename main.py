@@ -8,6 +8,7 @@ import numpy as np
 plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 
+
 file_path = 'C:/Users/qly/Desktop/磨矿系统需求/蚯蚓图demo/train/wine.csv'
 data_f = open(file_path,'r') # 默认csv文件格式，且经过标准化
 attributes = []
